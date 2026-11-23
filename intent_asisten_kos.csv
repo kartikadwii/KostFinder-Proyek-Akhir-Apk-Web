@@ -1,0 +1,49 @@
+intent,pattern,response
+salam,halo,"Halo! Saya Asisten KosFinder Yogyakarta. Silakan tanyakan ketersediaan kos kosong, estimasi harga sewa sesuai fasilitas, atau cari kos di 14 Kemantren Kota Yogyakarta."
+salam,hai,Halo! Ada yang bisa Asisten KosFinder bantu seputar pencarian kos di Kota Yogyakarta?
+salam,selamat pagi,"Selamat pagi! Mau cek kos kosong, hitung estimasi harga sewa bulanan, atau cari kos di kemantren mana hari ini?"
+salam,selamat siang,"Selamat siang! Silakan ketik kebutuhan kos Anda di Yogyakarta, seperti lokasi kemantren, fasilitas, atau cek kamar kosong."
+salam,selamat malam,Selamat malam! Saya siap membantu mencarikan info kos kosong dan prediksi harga sewa di 14 Kemantren Yogyakarta.
+salam,assalamualaikum,Waalaikumsalam! Selamat datang di KosFinder Yogyakarta. Silakan tanyakan info kos yang Anda butuhkan.
+cek_kos_kosong,apakah ada kos kosong,{DYNAMIC_KOS_KOSONG}
+cek_kos_kosong,info kamar kos tersedia saat ini,{DYNAMIC_KOS_KOSONG}
+cek_kos_kosong,cek ketersediaan kamar kos,{DYNAMIC_KOS_KOSONG}
+cek_kos_kosong,kos mana saja yang masih kosong,{DYNAMIC_KOS_KOSONG}
+cek_kos_kosong,masih ada kamar kos yang ready,{DYNAMIC_KOS_KOSONG}
+cek_kos_kosong,daftar kos yang masih ada kamar,{DYNAMIC_KOS_KOSONG}
+cek_kos_kosong,kos kosong yang siap huni,{DYNAMIC_KOS_KOSONG}
+prediksi_harga,berapa prediksi harga kos per bulan,{DYNAMIC_PREDIKSI_HARGA}
+prediksi_harga,estimasi harga sewa kos fasilitas ac wifi kamar mandi dalam,{DYNAMIC_PREDIKSI_HARGA}
+prediksi_harga,prediksi tarif bulanan kos sesuai fasilitas,{DYNAMIC_PREDIKSI_HARGA}
+prediksi_harga,kisaran harga kos pakai ac dan wifi berapa,{DYNAMIC_PREDIKSI_HARGA}
+prediksi_harga,hitung harga wajar kos perbulan,{DYNAMIC_PREDIKSI_HARGA}
+prediksi_harga,berapa biaya sewa kos bulanan kalau ada ac,{DYNAMIC_PREDIKSI_HARGA}
+prediksi_harga,estimasi harga kos kamar mandi dalam wifi,{DYNAMIC_PREDIKSI_HARGA}
+cari_kos_kecamatan,carikan kos di kecamatan gondokusuman,{DYNAMIC_CARI_KECAMATAN}
+cari_kos_kecamatan,rekomendasi kos di kemantren umbulharjo,{DYNAMIC_CARI_KECAMATAN}
+cari_kos_kecamatan,cari kos daerah kotagede mergangsan mantrijeron,{DYNAMIC_CARI_KECAMATAN}
+cari_kos_kecamatan,ada kos di danurejan gedongtengen gondomanan,{DYNAMIC_CARI_KECAMATAN}
+cari_kos_kecamatan,info kos sekitar jetis kraton ngampilan pakualaman,{DYNAMIC_CARI_KECAMATAN}
+cari_kos_kecamatan,cari kos wilayah tegalrejo wirobrajan yogyakarta,{DYNAMIC_CARI_KECAMATAN}
+cari_kos_kecamatan,daftar kos di 14 kemantren kota yogyakarta,{DYNAMIC_CARI_KECAMATAN}
+cari_kos_kecamatan,carikan kos putri putra campur di jogja,{DYNAMIC_CARI_KECAMATAN}
+daftar_kemantren,kemantren apa saja yang tersedia,"KosFinder mencakup seluruh 14 Kemantren di Kota Yogyakarta: Danurejan, Gedongtengen, Gondokusuman, Gondomanan, Jetis, Kotagede, Kraton, Mantrijeron, Mergangsan, Ngampilan, Pakualaman, Tegalrejo, Umbulharjo, dan Wirobrajan."
+daftar_kemantren,kecamatan mana saja yang ada datanya,"Dataset hasil crawling kami mencakup 14 Kemantren Kota Yogyakarta: Danurejan, Gedongtengen, Gondokusuman, Gondomanan, Jetis, Kotagede, Kraton, Mantrijeron, Mergangsan, Ngampilan, Pakualaman, Tegalrejo, Umbulharjo, dan Wirobrajan."
+daftar_kemantren,cakupan wilayah kosfinder dimana saja,"Layanan KosFinder mencakup 14 Kemantren di Kota Yogyakarta, mulai dari Gondokusuman, Umbulharjo, Kotagede, Mergangsan, Jetis, Tegalrejo, hingga wilayah pusat kota seperti Kraton dan Gondomanan."
+daftar_kemantren,14 kemantren kota yogyakarta apa saja,"14 Kemantren Kota Yogyakarta meliputi: Danurejan, Gedongtengen, Gondokusuman, Gondomanan, Jetis, Kotagede, Kraton, Mantrijeron, Mergangsan, Ngampilan, Pakualaman, Tegalrejo, Umbulharjo, dan Wirobrajan."
+segmen_klaster,apa saja kategori klaster kos,"Berdasarkan pemodelan K-Means Clustering, kos di Kota Yogyakarta dikelompokkan menjadi 3 segmen: Ekonomis (terjangkau), Menengah (fasilitas standar lengkap), dan Eksklusif (luas kamar besar & fasilitas premium)."
+segmen_klaster,perbedaan kos ekonomis menengah eksklusif,"Klaster Ekonomis memiliki tarif paling hemat dengan fasilitas dasar, Klaster Menengah menawarkan keseimbangan harga dan fasilitas seperti WiFi/KM dalam, sedangkan Klaster Eksklusif memiliki luas kamar lebih lega serta fasilitas lengkap seperti AC dan kamar mandi dalam."
+segmen_klaster,pembagian kelas harga kos di jogja,"Sistem AI membagi kelas kos menjadi 3 klaster utama yaitu Ekonomis, Menengah, dan Eksklusif berdasarkan kombinasi harga bulanan, luas kamar, rating, dan jumlah fasilitas."
+identitas,kamu siapa,"Saya Asisten KosFinder, chatbot tematik berbasis aturan dan data hasil crawling Kota Yogyakarta yang membantu mengecek kos kosong, prediksi harga sewa bulanan, dan pencarian kos di 14 Kemantren."
+identitas,kamu bisa apa saja,"Saya bisa membantu 3 hal utama: (1) Mengecek ketersediaan kos kosong dari data crawling terbaru, (2) Menghitung prediksi harga sewa bulanan sesuai fasilitas yang Anda butuhkan, dan (3) Mencari rekomendasi kos di 14 Kemantren Kota Yogyakarta."
+identitas,bantuan cara pakai bot,"Cukup ketik pertanyaan Anda, misalnya: Apakah ada kos kosong?, Prediksi harga kos AC dan WiFi per bulan, atau Carikan kos putri di Gondokusuman."
+terima_kasih,terima kasih,Sama-sama! Senang bisa membantu pencarian kos Anda di Yogyakarta.
+terima_kasih,makasih banyak infonya,"Dengan senang hati! Jika masih ingin mengecek kemantren lain atau menghitung estimasi harga fasilitas berbeda, silakan tanyakan kembali."
+perpisahan,sampai jumpa,Sampai jumpa! Semoga segera mendapatkan kos yang nyaman di Kota Yogyakarta.
+perpisahan,selesai cukup,Terima kasih telah menggunakan Asisten KosFinder. Sukses selalu di Yogyakarta!
+fallback,__FALLBACK__,"Maaf, saya belum memahami pertanyaan tersebut (skor kemiripan di bawah 0,45). Silakan tanyakan seputar: ketersediaan kos kosong, prediksi harga bulanan sesuai fasilitas (AC, WiFi, KM dalam), atau pencarian kos di 14 Kemantren Kota Yogyakarta."
+cari_kos_kecamatan,rekomendasi kos harga 500 ribu sampai 1 juta,{DYNAMIC_CARI_KECAMATAN}
+cari_kos_kecamatan,carikan kos budget 500rb sampai 1jt per bulan,{DYNAMIC_CARI_KECAMATAN}
+cari_kos_kecamatan,cari kos kisaran harga 500 ribu hingga 1 juta,{DYNAMIC_CARI_KECAMATAN}
+cari_kos_kecamatan,rekomendasi kos murah antara 500rb 1juta,{DYNAMIC_CARI_KECAMATAN}
+cari_kos_kecamatan,cari kos harga dibawah 1 juta di jogja,{DYNAMIC_CARI_KECAMATAN}
