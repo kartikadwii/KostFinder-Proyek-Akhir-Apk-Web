@@ -1,6 +1,8 @@
 from playwright.sync_api import sync_playwright
 import pandas as pd
 import numpy as np
+import urllib.request
+import urllib.parse
 import random
 import os
 import re
@@ -83,7 +85,6 @@ def parsing_kartu(cards, nama_kec_default, tipe_default):
         if harga == 0:
             continue
 
-        # Ekstraksi status ketersediaan kamar
         sisa_match = re.search(r"(Sisa\s+\d+\s+kamar)", teks, re.IGNORECASE)
         if "penuh" in teks.lower():
             status_kamar = "Penuh"
@@ -137,7 +138,6 @@ def parsing_kartu(cards, nama_kec_default, tipe_default):
 def jalankan_crawling():
     if os.path.exists(FILE_DATASET):
         semua_kos = pd.read_csv(FILE_DATASET).to_dict("records")
-        # Pertahankan semua data asli, hapus baris sintetis lama (#001, dst) sebelum dihitung ulang
         semua_kos = [row for row in semua_kos if "#" not in str(row.get("nama_kos", ""))]
         print(f"Memuat {len(semua_kos)} data kos asli yang sudah tersimpan...")
     else:
@@ -311,6 +311,60 @@ def lengkapi_hingga_target(df_asli):
     return df_gabungan[[k for k in kolom_urut if k in df_gabungan.columns]]
 
 
+def kirim_notif_telegram(df_final):
+    token = os.environ.get("TELEGRAM_BOT_TOKEN")
+    chat_id = os.environ.get("TELEGRAM_CHAT_ID")
+    if not token or not chat_id:
+        print("Info: TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID belum diset, notifikasi dilewati.")
+        return
+
+    is_sintetis = df_final["nama_kos"].astype(str).str.contains("#", regex=False)
+    jml_sintetis = int(is_sintetis.sum())
+    jml_asli = int((~is_sintetis).sum())
+
+    total_unit = len(df_final)
+    total_kosong = int(df_final["kamar_tersedia"].sum())
+    rata_harga = df_final["harga_bulanan"].mean()
+    termurah = df_final.sort_values("harga_bulanan").iloc[0]
+
+    df_tersedia = df_final[df_final["kamar_tersedia"] > 0].head(3)
+    if df_tersedia.empty:
+        teks_rekomendasi = "   - Tidak ada kamar kosong saat ini"
+    else:
+        daftar_kos = [
+            f"   {idx}. {row['nama_kos']} ({row['kecamatan']}) - Rp {row['harga_bulanan']:,.0f}"
+            for idx, (_, row) in enumerate(df_tersedia.iterrows(), 1)
+        ]
+        teks_rekomendasi = "\n".join(daftar_kos)
+
+    pesan = (
+        f"🤖 *LAPORAN AUTO-CRAWLING KOSFINDER*\n"
+        f"━━━━━━━━━━━━━━━━━━━━━━\n"
+        f"✅ Status: *Selesai & Tersimpan*\n"
+        f"📊 Dataset: *{total_unit} unit* ({jml_asli} Asli | {jml_sintetis} Sintetis)\n"
+        f"🛏️ Kamar Siap Huni: *{total_kosong} kamar*\n"
+        f"💰 Rata-rata Tarif: *Rp {rata_harga:,.0f}/bln*\n"
+        f"🔥 Termurah: *{termurah['nama_kos']}* ({termurah['kecamatan']}) - Rp {termurah['harga_bulanan']:,.0f}/bln\n\n"
+        f"🏠 *3 Kos Tersedia Terbaru:*\n"
+        f"{teks_rekomendasi}\n\n"
+        f"💬 _Ketik pertanyaan langsung di chat ini untuk mencari kos atau cek estimasi harga._"
+    )
+
+    url = f"https://api.telegram.org/bot{token}/sendMessage"
+    payload = urllib.parse.urlencode({
+        "chat_id": chat_id,
+        "text": pesan,
+        "parse_mode": "Markdown"
+    }).encode("utf-8")
+
+    try:
+        req = urllib.request.Request(url, data=payload)
+        urllib.request.urlopen(req, timeout=15)
+        print("Notifikasi lengkap berhasil dikirim ke Telegram!")
+    except Exception as e:
+        print(f"Gagal mengirim notifikasi Telegram: {e}")
+
+
 if __name__ == "__main__":
     df_hasil_crawl = jalankan_crawling()
     df_final = lengkapi_hingga_target(df_hasil_crawl)
@@ -319,3 +373,5 @@ if __name__ == "__main__":
     print(f"\nSELESAI! Total {len(df_final)} baris dataset tersimpan ke {FILE_DATASET}")
     print("\nDistribusi Status Ketersediaan Kamar:")
     print(df_final["status_kamar"].value_counts())
+
+    kirim_notif_telegram(df_final)
