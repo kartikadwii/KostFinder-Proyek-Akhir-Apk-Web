@@ -6,6 +6,7 @@ import urllib.parse
 import random
 import os
 import re
+import ssl
 
 random.seed(42)
 np.random.seed(42)
@@ -359,7 +360,7 @@ def kirim_notif_telegram(df_final):
 
     try:
         req = urllib.request.Request(url, data=payload)
-        urllib.request.urlopen(req, timeout=15)
+        urllib.request.urlopen(req, timeout=15, context=ssl._create_unverified_context())
         print("Notifikasi lengkap berhasil dikirim ke Telegram!")
     except Exception as e:
         print(f"Gagal mengirim notifikasi Telegram: {e}")

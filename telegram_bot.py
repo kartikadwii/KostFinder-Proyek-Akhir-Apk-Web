@@ -1,5 +1,6 @@
 import os
 import re
+import ssl
 import time
 import json
 import urllib.request
@@ -13,6 +14,9 @@ FILE_INTENT = "intent_asisten_kos.csv"
 FILE_DATASET = "dataset_kos_yogyakarta.csv"
 PATH_REGRESI = os.path.join("models", "model_harga_regresi.pkl")
 THRESHOLD = 0.45
+
+# Konteks SSL untuk melewati blokir sertifikat antivirus / jaringan lokal
+SSL_CTX = ssl._create_unverified_context()
 
 DAFTAR_KEMANTREN = [
     "Danurejan", "Gedongtengen", "Gondokusuman", "Gondomanan",
@@ -169,7 +173,7 @@ def kirim_pesan(chat_id: int, teks: str):
         "parse_mode": "Markdown"
     }).encode("utf-8")
     try:
-        urllib.request.urlopen(urllib.request.Request(url, data=data), timeout=15)
+        urllib.request.urlopen(urllib.request.Request(url, data=data), timeout=15, context=SSL_CTX)
     except Exception as e:
         print(f"Error kirim balasan: {e}")
 
@@ -187,7 +191,7 @@ def jalankan_bot():
     while True:
         try:
             url = f"https://api.telegram.org/bot{TOKEN}/getUpdates?timeout=30&offset={offset}"
-            res = json.loads(urllib.request.urlopen(url, timeout=35).read().decode("utf-8"))
+            res = json.loads(urllib.request.urlopen(url, timeout=35, context=SSL_CTX).read().decode("utf-8"))
             for update in res.get("result", []):
                 offset = update["update_id"] + 1
                 msg = update.get("message", {})
